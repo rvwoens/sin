@@ -1,4 +1,4 @@
-<?php
+<?php namespace Cosninix\Sin;
 
 /**
  * Class Sin
