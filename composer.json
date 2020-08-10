@@ -1,0 +1,40 @@
+{
+    "name": "cosninix/sin",
+    "description": "Simple internationalization for Laravel",
+    "type": "library",
+    "require": {
+        "php": "^7.0.0",
+        "phpmd/phpmd": "^2.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+        "library",
+        "internationalization",
+        "i18n"
+    ],
+    "authors": [
+        {
+            "name": "Ronald van Woensel",
+            "email": "rvw@cosninix.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Cosninix\\Sin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cosninix\\Sin\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "fix": "vendor/bin/php-cs-fixer fix -v",
+        "smell": "vendor/bin/phpmd src text phpmd-rules.xml"
+    }
+}
