@@ -2,21 +2,20 @@
 
 /**
  * Class Sin
- *   convert a string with nl::xxxx|en::xxxx|@@::xxxx into the right language string, otherwise just return string
- *   convert an array [nl=>dutch, en=>english, @@=>translate]
+ *   convert a string with nl::xxxx|en::xxxx|@@::xxxx into the right language, otherwise just return string
+ *   convert an array [nl=>dutch, en=>english, de=>german, fr=>french, @@=>translate via laravel]
  * @version 1.0
- * @Author Ronald vanWoensel <rvw@cosninix.com>
+ * @Author rvwoens <rvw@cosninix.com>
  */
 class Sin {
     /**
-   	 * Sin::lang
-
+   	 * Sin::t
    	 * @param  array|string $s - translations for the current placeholder
    	 * @return string|null
    	 */
-   	public static function lang() {
+   	public static function t() {
 
-   		//get function arguments, assuming first string is 'legacy'  "nl::vertaling is niet beschikbaar"
+   		//get function arguments, assuming first string is 'legacy'  "en::translation not available"
    		$args = func_get_args();
 
    		$line = array_shift($args);
