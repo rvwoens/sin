@@ -11,14 +11,16 @@ use Illuminate\Support\Facades\Lang;
  * @Author rvwoens <rvw@cosninix.com>
  */
 class Sin {
+
+
     /**
-   	 * Sin::t
+   	 * Sin::lang
    	 * @param  array|string $s - translations for the current placeholder
    	 * @return string|null
    	 */
-   	public static function t() {
+   	public static function lang() {
 
-   		//get function arguments, assuming first string is 'legacy'  "en::translation not available"
+   		//get function arguments, assuming first string is 'legacy' "en::english|fr:french"
    		$args = func_get_args();
 
    		$line = array_shift($args);
