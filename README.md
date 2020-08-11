@@ -50,9 +50,13 @@ Sin runs every result through sprintf so this works fine:
 ```
     Sin::lang("en::We have %d smartphones in stock|nl::nu %d smartphones op voorraad",20); 
 ```
-Of course, Sin is not limited to code. You can use Sin in yaml or json files:
+Of course, Sin is not limited to code. You can use Sin in yaml or json files as long as you pass it through Sin before presenting it.
 ```
     list: { options: [ 1, 3 ], text: [ "nl::kies 1|en::choose 1", "nl::Neem er 3|en::Take 3" ] }
+```
+For instance this could be done with database values in blade:
+```
+    <h1>@slang( $stock->article_name )</h1>
 ```
 
 #### Laravel integration
