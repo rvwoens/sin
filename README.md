@@ -31,9 +31,9 @@ The sin package creates the *Sin* facade alias, a serviceprovider and a helper f
     echo Sin::lang("nl::via de Sin facade deze keer|en::through the Sin facade this time");
     
     // three underscores
-    echo ___("nl::via de helper werkt\n|en::works with the helper\n");
+    echo ___("nl::via de helper function|en::works with the helper function");
 ```
-and also in blade:
+and also in blade using the **@slang** directive
 ```
     <h1>@slang('nl::blade constructie|en::blade construct')</h1>
 ```
