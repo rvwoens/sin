@@ -11,6 +11,7 @@
 
     <!-- CLEANCODE -->
     <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>          <!-- laravel facades -->
         <exclude name="ElseExpression"/>
         <exclude name="BooleanArgumentFlag"/>
         <exclude name="UndefinedVariable"/>     <!-- bug in phpmd does not notice ref-variables -->
@@ -57,6 +58,7 @@
     <!-- NAMING -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable"/>     <!-- the list of exceptions is too long  -->
+        <exclude name="LongVariable"/>      
     </rule>
 
     <!-- UNUSED CODE -->
