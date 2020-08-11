@@ -1,8 +1,9 @@
 <?php
-use PHPUnit\Framework\TestCase;
-use Cosninix\Sin\Sin;
 
-require_once('ConfigFaker.php');
+use Illuminate\Foundation\Application;
+use Orchestra\Testbench\TestCase;
+use Cosninix\Sin\SinBase;
+
 /**
  * Class SimpleSinTest
  * @version 1.0
@@ -10,10 +11,20 @@ require_once('ConfigFaker.php');
  */
 class SimpleSinTest extends TestCase {
 
+	/**
+	 * Define environment setup.
+	 * @param Application $app
+	 */
+	protected function getEnvironmentSetUp($app) {
+		$app['config']->set('app.locale', 'en');
+	}
+
+	/**
+	 * test the base class
+	 */
 	public function testString() {
-		$config = new ConfigFaker();
-		$obj = new Sin($config);
-		$result=$obj->lang('de::german|en::english');
+		$obj = new SinBase(app('config'));
+		$result = $obj->lang('de::german|en::english');
 		$this->assertEquals('english', $result);
 	}
 }

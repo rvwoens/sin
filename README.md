@@ -33,6 +33,11 @@ The sin package creates the *Sin* facade alias, a serviceprovider and a helper f
     // three underscores
     echo ___("nl::via de sinlang helper werkt ook geweldig\n|en::works great as well through the sinlang helper\n");
 ```
+and also in blade:
+```
+    <h1>@slang('nl::blade constructie|en::blade construct')</h1>
+```
+
 If the language construct is not found, Sin passes the string as is, so:
 ```
     Sin::lang('no language specified'); --> 'no language specified'

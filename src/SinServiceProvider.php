@@ -1,6 +1,7 @@
 <?php namespace Cosninix\Sin;
 
 use Illuminate\Foundation\Application as LaravelApplication;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository as Config;
 use Laravel\Lumen\Application as LumenApplication;
@@ -11,20 +12,23 @@ use Laravel\Lumen\Application as LumenApplication;
  * @Author Ronald vanWoensel <rvw@cosninix.com>
  */
 class SinServiceProvider extends ServiceProvider {
-	const SINCLASS = 'Sin';
+	const SINIOC = 'Sin';
 
 	/**
 	 * Boot the service provider.
+	 * Register blade @sin(..)
 	 */
 	public function boot() {
-		//
+		Blade::directive('slang', function ($expression) {
+			return "<?php echo ___($expression); ?>";
+		});
 	}
 
 	/**
 	 * Register the service provider.
 	 */
 	public function register() {
-		$this->app->singleton(self::SINCLASS, function ($app) {
+		$this->app->singleton(self::SINIOC, function ($app) {
 			return $this->createSinClient($app['config']);
 		});
 		require_once(__DIR__ . DIRECTORY_SEPARATOR. 'SinHelper.php');
@@ -36,7 +40,7 @@ class SinServiceProvider extends ServiceProvider {
 	 * @return array
 	 */
 	public function provides() {
-		return [self::SINCLASS];
+		return [self::SINIOC];
 	}
 
 	/**
@@ -44,6 +48,6 @@ class SinServiceProvider extends ServiceProvider {
 	 * @return Client
 	 */
 	protected function createSinClient(Config $config) {
-		return new Sin($config);
+		return new SinBase($config);
 	}
 }

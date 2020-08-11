@@ -9,7 +9,7 @@ if (!function_exists('___')) {
 	 * @return string
 	 */
 	function ___() {
-		// call with same arguments given to sinlang()
-		return call_user_func_array([app(\Cosninix\Sin\SinServiceProvider::SINCLASS), "lang"], func_get_args());
+		// call with same arguments given to ___()
+		return call_user_func_array([app(\Cosninix\Sin\SinServiceProvider::SINIOC), "lang"], func_get_args());
 	}
 }
