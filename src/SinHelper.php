@@ -1,4 +1,4 @@
-<?php namespace Cosninix\Sin;
+<?php   // define helper function in global namespace
 /**
  * @Author Ronald van Woensel <rvw@cosninix.com>
  */
@@ -8,7 +8,8 @@ if (!function_exists('sinlang')) {
      * @param $file
      * @return string
      */
-    function sinlang($text) {
-        return app(SinServiceProvider::SINCLASS)->lang($text);
+    function sinlang() {
+        // call with same arguments given to sinlang()
+        return call_user_func_array(array(app(\Cosninix\Sin\SinServiceProvider::SINCLASS), "lang"), func_get_args());
     }
 }
