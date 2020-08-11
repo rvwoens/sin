@@ -11,7 +11,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpmd/phpmd": "^2.8"
     },
-    "license": "GPL-3.0-or-later",
+    "license": "MIT",
     "keywords": [
         "library",
         "internationalization",

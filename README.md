@@ -1,9 +1,9 @@
 ## Sin - Simple Internationalization for Laravel
-[![GitHub Release](https://img.shields.io/github/v/tag/rvwoens/sin.svg?style=flat)](//packagist.org/packages/rvwoens/geometry)
-[![GitHub Release](https://img.shields.io/packagist/v/rvwoens/sin.svg?style=flat)](//packagist.org/packages/rvwoens/geometry)
-[![Total Downloads](https://poser.pugx.org/rvwoens/sin/downloads)](//packagist.org/packages/rvwoens/geometry)
-[![License](https://poser.pugx.org/rvwoens/sin/license)](//packagist.org/packages/rvwoens/geometry)
-[![Actions Status](https://github.com/rvwoens/sin/workflows/CI/badge.svg)](https://github.com/rvwoens/geometry/actions)
+[![GitHub Release](https://img.shields.io/github/v/tag/rvwoens/sin.svg?style=flat)](//packagist.org/packages/cosninix/sin)
+[![GitHub Release](https://img.shields.io/packagist/v/cosninix/sin.svg?style=flat)](//packagist.org/packages/cosninix/sin)
+[![Total Downloads](https://poser.pugx.org/cosninix/sin/downloads)](//packagist.org/packages/cosninix/sin)
+[![License](https://poser.pugx.org/cosninix/sin/license)](//packagist.org/packages/cosninix/sin)
+[![Actions Status](https://github.com/rvwoens/sin/workflows/CI/badge.svg)](https://github.com/rvwoens/sin/actions)
 
 Sin takes a whole new approach to internationalization (i18n) that is useful for simple projects or when the developer can make fast translations on the fly.
 The way it works is very simple: Just define a string in a special format containg all the languages, as follows:

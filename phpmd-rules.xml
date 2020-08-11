@@ -58,7 +58,7 @@
     <!-- NAMING -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable"/>     <!-- the list of exceptions is too long  -->
-        <exclude name="LongVariable"/>      
+        <exclude name="LongVariable"/>
     </rule>
 
     <!-- UNUSED CODE -->
