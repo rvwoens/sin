@@ -1,5 +1,8 @@
 <?php namespace Cosninix\Sin;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+
 /**
  * Class Sin
  *   convert a string with nl::xxxx|en::xxxx|@@::xxxx into the right language, otherwise just return string
