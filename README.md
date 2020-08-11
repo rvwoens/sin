@@ -31,7 +31,7 @@ The sin package creates the *Sin* facade alias, a serviceprovider and a helper f
     echo Sin::lang("nl::via de Sin facade deze keer|en::through the Sin facade this time");
     
     // three underscores
-    echo ___("nl::via de sinlang helper werkt ook geweldig\n|en::works great as well through the sinlang helper\n");
+    echo ___("nl::via de helper werkt\n|en::works with the helper\n");
 ```
 and also in blade:
 ```
@@ -42,15 +42,12 @@ If the language construct is not found, Sin passes the string as is, so:
 ```
     Sin::lang('no language specified'); --> 'no language specified'
 ```
-So you can pass for instance database strings through Sin before showing the user, as this adds the opportunity to add a language later on.
-
-
 
 Sin runs every result through sprintf so this works fine:
 ```
     Sin::lang("en::We have %d smartphones in stock|nl::nu %d smartphones op voorraad",20); 
 ```
-Of course, Sin is not limited to code. You can use Sin in yaml or json files as long as you pass it through Sin before presenting it.
+Of course, Sin is not limited to php code. You can use Sin in yaml or json files as long as you pass it through Sin before presenting it.
 ```
     list: { options: [ 1, 3 ], text: [ "nl::kies 1|en::choose 1", "nl::Neem er 3|en::Take 3" ] }
 ```
@@ -58,6 +55,7 @@ For instance this could be done with database values in blade:
 ```
     <h1>@slang( $stock->article_name )</h1>
 ```
+
 
 #### Laravel integration
 Sin takes the app.locale config as the default language and app.fallback_locale as fallback. If you change the app language using 
