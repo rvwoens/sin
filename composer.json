@@ -40,7 +40,7 @@
                 "Cosninix\\Sin\\SinServiceProvider"
             ],
             "aliases": {
-                "Sin": "Sin"
+                "Sin": "Cosninix\\Sin\\Sin"
             }
         }
     },
