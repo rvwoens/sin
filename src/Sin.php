@@ -40,7 +40,7 @@ class Sin {
    		}
 
    		// string format XX:: found
-   		if (substr($line, 2, 2)=='::') { // } && in_array(substr($s,0,2),Config::get('app.available_languages'))) {
+   		if (substr($line, 2, 2)=='::') {
 
    			//reduce translations to form [lang => line]
    			/** @var Collection $translations */

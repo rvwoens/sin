@@ -23,13 +23,41 @@ Sin is most useful for bi-lingual applications (like dutch/english) where the de
 ```
 The sin package creates the *Sin* facade alias, a serviceprovider and a helper function
 
-#### Usage
+#### Basic usage
 
 ```
-    echo app('Sin')->lang("nl::via de serviceprovider\n|en::via theserviceprovider\n");
+    echo app('Sin')->lang("nl::via de serviceprovider\n|en::via the serviceprovider\n");
 
     echo Sin::lang("nl::via de Sin facade deze keer\n|en::through the Sin facade this time\n");
     
-    echo sinlang("nl::via de sinlang helper werkt ook geweldig\n|en::works great as well through the sinlanghelper\n");
+    // three underscores
+    echo ___("nl::via de sinlang helper werkt ook geweldig\n|en::works great as well through the sinlang helper\n");
 ```
+If the language construct is not found, Sin passes the string as is, so:
+```
+    Sin::lang('no language specified'); --> 'no language specified'
+```
+So you can pass for instance database strings through Sin before showing the user, as this adds the opportunity to add a language later on.
+
+Sin runs every result through sprintf so this works fine:
+```
+    Sin::lang("en::We have %d smartphones in stock|nl::nu %d smartphones op voorraad",20); 
+```
+Of course, Sin is not limited to code. You can use Sin in yaml or json files:
+```
+    list: { options: [ 1, 3 ], text: [ "nl::kies 1|en::choose 1", "nl::Neem er 3|en::Take 3" ] }
+```
+
+#### Laravel integration
+Sin takes the app.locale config as the default language and app.fallback_locale as fallback. If you change the app language using 
+```
+    App::setLocale('nl');
+```
+You can prepare for Laravel translations by giving an additional laravel key that can be used with the traditional lang() construct:
+```
+    Sin::lang('nl::Nederlands|en::English|@@::language_key);
+```
+If the *language_key* exists in the laravel translations, this takes priority, otherwise the Sin translations are used. So you can add traditional translations later on.
+
+
 
