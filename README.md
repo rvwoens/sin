@@ -38,15 +38,17 @@ and also in blade using the **@slang** directive
     <h1>@slang('nl::blade constructie|en::blade construct')</h1>
 ```
 
-If the language construct is not found, Sin passes the string as is, so:
+If the sin syntax is not found, Sin passes the string as is. 
+The syntax is triggered on all strings beginning wih the XX:: format.
 ```
-    Sin::lang('no language specified'); --> 'no language specified'
+    Sin::lang('passed without alterations %f'); --> 'passed without alterations %f'
 ```
 
-Sin runs every result through sprintf so this works fine:
+Sin runs every result (where syntax is triggered!) through sprintf:
 ```
     Sin::lang("en::We have %d smartphones in stock|nl::nu %d smartphones op voorraad",20); 
 ```
+
 Of course, Sin is not limited to php code. You can use Sin in yaml or json files as long as you pass it through Sin before presenting it.
 ```
     list: { options: [ 1, 3 ], text: [ "nl::kies 1|en::choose 1", "nl::Neem er 3|en::Take 3" ] }
