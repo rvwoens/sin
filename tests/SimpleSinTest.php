@@ -10,10 +10,10 @@ require_once('ConfigFaker.php');
  */
 class SimpleSinTest extends TestCase {
 
-   	public function testString() {
-        $config = new ConfigFaker();
-   		$obj = new Sin($config);
-   		$result=$obj->lang('de::german|en::english');
-   		$this->assertEquals('english',$result);
-    }
+	public function testString() {
+		$config = new ConfigFaker();
+		$obj = new Sin($config);
+		$result=$obj->lang('de::german|en::english');
+		$this->assertEquals('english', $result);
+	}
 }

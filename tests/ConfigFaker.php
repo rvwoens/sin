@@ -6,7 +6,7 @@
  * @Author Ronald vanWoensel <rvw@cosninix.com>
  */
 class ConfigFaker {
-    public function get($s) {
-        return 'en';
-    }
+	public function get($s) {
+		return 'en';
+	}
 }
