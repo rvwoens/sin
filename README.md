@@ -26,9 +26,9 @@ The sin package creates the *Sin* facade alias, a serviceprovider and a helper f
 #### Basic usage
 
 ```
-    echo app('Sin')->lang("nl::via de serviceprovider\n|en::via the serviceprovider\n");
+    echo app('Sin')->lang("nl::via de serviceprovider|en::via the serviceprovider");
 
-    echo Sin::lang("nl::via de Sin facade deze keer\n|en::through the Sin facade this time\n");
+    echo Sin::lang("nl::via de Sin facade deze keer|en::through the Sin facade this time");
     
     // three underscores
     echo ___("nl::via de sinlang helper werkt ook geweldig\n|en::works great as well through the sinlang helper\n");
@@ -44,6 +44,8 @@ If the language construct is not found, Sin passes the string as is, so:
 ```
 So you can pass for instance database strings through Sin before showing the user, as this adds the opportunity to add a language later on.
 
+
+
 Sin runs every result through sprintf so this works fine:
 ```
     Sin::lang("en::We have %d smartphones in stock|nl::nu %d smartphones op voorraad",20); 
@@ -58,6 +60,8 @@ Sin takes the app.locale config as the default language and app.fallback_locale 
 ```
     App::setLocale('nl');
 ```
+If the current language is not found, the fallback locale is used.
+
 You can prepare for Laravel translations by giving an additional laravel key that can be used with the traditional @lang construct:
 ```
     Sin::lang('nl::Nederlands|en::English|@@::language_key);
