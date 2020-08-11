@@ -10,6 +10,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class SinFacade extends Facade {
     protected static function getFacadeAccessor() {
-        return Sin::class;
+        return SinServiceProvider::SINCLASS;
     }
 }
