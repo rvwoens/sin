@@ -53,7 +53,7 @@ Sin takes the app.locale config as the default language and app.fallback_locale 
 ```
     App::setLocale('nl');
 ```
-You can prepare for Laravel translations by giving an additional laravel key that can be used with the traditional lang() construct:
+You can prepare for Laravel translations by giving an additional laravel key that can be used with the traditional @lang construct:
 ```
     Sin::lang('nl::Nederlands|en::English|@@::language_key);
 ```
