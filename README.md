@@ -15,7 +15,7 @@ Because Sin uses strings only, it can be used in code, but also in databases, ya
 
 Sin integrates seemless with Laravel and uses the old and new laravel internationalization styles so it can be seen as an add-on to this mechanism.
 
-Sin is most useful for bi-lingual applications (like dutch/english) where the developer is bi-lingual as well. 
+Sin is most useful for bi-lingual applications (like dutch/english) where the developer includes immediate translations while coding.
 
 #### Installation
 ```
