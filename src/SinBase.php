@@ -1,8 +1,10 @@
 <?php namespace Cosninix\Sin;
 
+use Exception;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class Sin
@@ -13,15 +15,15 @@ use Illuminate\Support\Collection;
  */
 class SinBase {
 	/** @var Config locale */
-	private $config=null;
+	private $config = null;
 
 	public function __construct($config) {
-		$this->config=$config;
+		$this->config = $config;
 	}
 
 	/**
 	 * Sin::lang
-	 * @param  array|string $s - translations for the current placeholder
+	 * @param array|string $s - translations for the current placeholder
 	 * @return string|null
 	 */
 	public function lang() {
@@ -34,19 +36,28 @@ class SinBase {
 		$currentLanguage = strtolower($this->config->get('app.locale'));
 
 		//enable support for array definition (['nl' => 'hallo wereld', 'en' => 'hello world'])
-		if(is_array($line)) {
+		if (is_array($line)) {
 			//try to resolve "locale" -> "fallback_locale" -> "first item in array"
-			return array_get($line, $currentLanguage, array_get($line, strtolower($this->config->get('app.fallback_locale')), current($line)));
+			if (isset($line[$currentLanguage]))
+				return $line[$currentLanguage];
+			$fallback = strtolower($this->config->get('app.fallback_locale'));
+			if (isset($line[$fallback]))
+				return $line[$fallback];
+			return current($line);
 		}
 
 		// string format XX:: found
-		if (substr($line, 2, 2)=='::') {
+		if (substr($line, 2, 2) == '::') {
 
 			//reduce translations to form [lang => line]
 			/** @var Collection $translations */
 			$translations = collect(explode('|', $line))->reduce(function ($carry, $lang) {
-				list($key, $value) = explode('::', $lang);
-				$carry[$key] = $value;
+				try {
+					list($key, $value) = explode('::', $lang);
+					$carry[$key] = $value;
+				} catch (Exception $e) {
+					Log::error("Sin::lang syntax error: $lang");
+				}
 				return $carry;
 			}, collect());
 

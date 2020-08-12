@@ -66,4 +66,24 @@ class SinBaseTest extends TestCase {
 		$result = Sin::lang('de::kotelett|en::cutlet|nl::kotelet|fr::c&ocirc;telette|@@::auth.failed');
 		$this->assertEquals('These credentials do not match our records.', $result);
 	}
+
+	public function testIllegalSyntax() {
+		$result = Sin::lang('nl::kotelet|en:wrong');
+		$this->assertEquals('kotelet', $result);
+		$result = Sin::lang('nl::kotelet|');
+		$this->assertEquals('kotelet', $result);
+		$result = Sin::lang('|nl::kotelet');	// incorrect syntax does not start with XX::...
+		$this->assertEquals('|nl::kotelet', $result);
+		$result = Sin::lang('nl::kotelet|::wrong');
+		$this->assertEquals('kotelet', $result);
+		$result = Sin::lang('nl::kotelet|de::kotelett');	// en not found
+		$this->assertEquals('kotelet', $result);
+		$result = Sin::lang('nl::kotelet|EN_en::wrong');	// en not found
+		$this->assertEquals('kotelet', $result);
+	}
+
+	public function testArrayVersion() {
+		$result = Sin::lang(['nl'=>'kotelet','en'=>'cutlet']);
+		$this->assertEquals('cutlet', $result);
+	}
 }
