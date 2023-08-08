@@ -58,6 +58,11 @@ class SinBaseTest extends TestCase {
 		$this->assertEquals('I have 2 hands and 1 nose', $result);
 	}
 
+    public function testSprintfException() {
+        $result = Sin::lang('nl::ik heb %d handen en %d neus|en::I have %d hands and %d nose');
+        $this->assertEquals('I have %d hands and %d nose', $result);
+    }
+
 	public function testLaravel() {
 		$result = Sin::lang('de::kotelett|en::cutlet|nl::kotelet|fr::c&ocirc;telette|@@::does.not.exist');
 		$this->assertEquals('cutlet', $result);
