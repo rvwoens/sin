@@ -1,5 +1,6 @@
 <?php namespace Cosninix\Sin;
 
+use ArgumentCountError;
 use Exception;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Lang;
@@ -95,7 +96,7 @@ class SinBase {
             try {
                 return call_user_func_array('sprintf', $args);
             }
-            catch(Exception $e) {
+            catch(ArgumentCountError $e) {
                 return $translation();  // exception in sprintf. Possible mismatched %s
             }
 
