@@ -12,7 +12,7 @@ use Laravel\Lumen\Application as LumenApplication;
  * @Author Ronald vanWoensel <rvw@cosninix.com>
  */
 class SinServiceProvider extends ServiceProvider {
-	const SINIOC = 'Sin';
+	public const SINIOC = 'Sin';
 
 	/**
 	 * Boot the service provider.

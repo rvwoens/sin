@@ -69,7 +69,9 @@ $rules = [
     'no_empty_phpdoc'=>true,
     'phpdoc_align' => false,
     'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
+    'general_phpdoc_tag_rename' => true,        // these three replace v2 'phpdoc_inline_tag'
+    'phpdoc_inline_tag_normalizer' => true,
+    'phpdoc_tag_type' => true,
     'phpdoc_no_access' => true,
     'phpdoc_no_package' => true,
     'phpdoc_order' => true,
@@ -100,8 +102,8 @@ $finder = Finder::create()
     ->exclude($excludes)
     ->notName('*.blade.php');
 
-return Config::create()->setRules($rules)
-             ->setFinder(Finder::create()->in(__DIR__))
+return (new Config())->setRules($rules)
+             ->setFinder($finder)
              ->setUsingCache(false)
              ->setIndent("\t")              // tabs trump spaces
              ->setLineEnding("\n")          // who needs MSDOS

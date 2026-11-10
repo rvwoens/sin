@@ -7,41 +7,55 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { php: '7.4', laravel: '8',  testbench: '6' }
+          - { php: '8.1', laravel: '8',  testbench: '6' }
+          - { php: '8.0', laravel: '9',  testbench: '7' }
+          - { php: '8.2', laravel: '9',  testbench: '7' }
+          - { php: '8.1', laravel: '10', testbench: '8' }
+          - { php: '8.3', laravel: '10', testbench: '8' }
+          - { php: '8.2', laravel: '11', testbench: '9' }
+          - { php: '8.4', laravel: '11', testbench: '9' }
+          - { php: '8.2', laravel: '12', testbench: '10' }
+          - { php: '8.3', laravel: '12', testbench: '10' }
+          - { php: '8.4', laravel: '12', testbench: '10' }
+          - { php: '8.5', laravel: '12', testbench: '10' }
+          - { php: '8.3', laravel: '13', testbench: '11' }
+          - { php: '8.4', laravel: '13', testbench: '11' }
+          - { php: '8.5', laravel: '13', testbench: '11' }
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: none
 
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    # the committed composer.lock is for local development; each matrix job resolves its own Laravel version
+    - name: Install dependencies for Laravel ${{ matrix.laravel }}
+      env:
+        # Laravel 8-11 are end-of-life and every release has security advisories, which Composer
+        # refuses to install by default. Allow them for these test-only installs.
+        COMPOSER_NO_SECURITY_BLOCKING: ${{ matrix.laravel < 12 && '1' || '0' }}
+      run: |
+        composer require --dev "orchestra/testbench:^${{ matrix.testbench }}.0" --no-update --no-interaction
+        composer update --prefer-dist --no-interaction --no-progress
 
     - name: Run test suite
       run: composer run-script test
 
     #- name: Run phpmd code smell
     # run: composer run-script smell
-
-    #- name: Run php-cs-fixer
-    #  run: composer run-script fix
-
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-          commit_message: Apply php-cs-fixer changes

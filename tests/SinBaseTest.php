@@ -58,10 +58,11 @@ class SinBaseTest extends TestCase {
 		$this->assertEquals('I have 2 hands and 1 nose', $result);
 	}
 
-    public function testSprintfException() {
-        $result = Sin::lang('nl::ik heb %d handen en %d neus|en::I have %d hands and %d nose');
-        $this->assertEquals('I have %d hands and %d nose', $result);
-    }
+	public function testSprintfException() {
+		// run with invalid number of arguments. Should catch the error and run without sprintf
+		$result = Sin::lang('nl::ik heb %d handen en %d neus|en::I have %d hands and %d nose');
+		$this->assertEquals('I have %d hands and %d nose', $result);
+	}
 
 	public function testLaravel() {
 		$result = Sin::lang('de::kotelett|en::cutlet|nl::kotelet|fr::c&ocirc;telette|@@::does.not.exist');
@@ -85,6 +86,12 @@ class SinBaseTest extends TestCase {
 		$this->assertEquals('kotelet', $result);
 		$result = Sin::lang('nl::kotelet|EN_en::wrong');	// en not found
 		$this->assertEquals('kotelet', $result);
+	}
+
+	public function testNull() {
+		// e.g. @slang($model->nullable_column)
+		$this->assertNull(Sin::lang(null));
+		$this->assertNull(___());
 	}
 
 	public function testArrayVersion() {

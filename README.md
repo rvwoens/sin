@@ -21,6 +21,8 @@ Sin is most useful for bi-lingual applications (like dutch/english) where the de
 ```
     composer install cosninix/sin
 ```
+Supports Laravel 8 up to 13 and PHP 7.3 up to 8.5.
+
 The sin package creates the *Sin* facade alias, a serviceprovider and a helper function
 
 #### Basic usage

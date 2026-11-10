@@ -47,58 +47,58 @@ class SinBase {
 			return current($line);
 		}
 
-		// string format XX:: found
-		if (substr($line, 2, 2) == '::') {
+		// string format XX:: found. (string) cast: null (e.g. a null database column) is passed as is, without the PHP 8.1+ substr(null) deprecation
+		if (substr((string)$line, 2, 2) == '::') {
 
-            //reduce translations to form [lang => line]
-            /** @var Collection $translations */
-            $translations=collect(explode('|', $line))->reduce(function($carry, $lang) {
-                try {
-                    list($key, $value)=explode('::', $lang);
-                    $carry[$key]=$value;
-                }
-                catch(Exception $e) {
-                    Log::error("Sin::lang syntax error: $lang");
-                }
-                return $carry;
-            }, collect());
+			//reduce translations to form [lang => line]
+			/** @var Collection $translations */
+			$translations=collect(explode('|', $line))->reduce(function ($carry, $lang) {
+				try {
+					list($key, $value)=explode('::', $lang);
+					$carry[$key]=$value;
+				}
+				catch(Exception $e) {
+					Log::error("Sin::lang syntax error: $lang");
+				}
+				return $carry;
+			}, collect());
 
-            $translation=function() use ($translations, $currentLanguage) {
+			$translation=function () use ($translations, $currentLanguage) {
 
-                //try to find key, to use laravel language files
-                $translationByKey=$translations->get('@@');
+				//try to find key, to use laravel language files
+				$translationByKey=$translations->get('@@');
 
-                if($translationByKey && Lang::has($translationByKey)) {
-                    return Lang::get($translationByKey);
-                }
+				if($translationByKey && Lang::has($translationByKey)) {
+					return Lang::get($translationByKey);
+				}
 
-                //try to find a translation in the users current language
-                $translationByCurrentLanguage=$translations->get($currentLanguage);
+				//try to find a translation in the users current language
+				$translationByCurrentLanguage=$translations->get($currentLanguage);
 
-                if($translationByCurrentLanguage) {
-                    return $translationByCurrentLanguage;
-                }
+				if($translationByCurrentLanguage) {
+					return $translationByCurrentLanguage;
+				}
 
-                //try to find a translation in our fallback language
-                $defaultLanguageMatchedTranslation=$translations->get($this->config->get('app.fallback_locale'));
+				//try to find a translation in our fallback language
+				$defaultLanguageMatchedTranslation=$translations->get($this->config->get('app.fallback_locale'));
 
-                if($defaultLanguageMatchedTranslation) {
-                    return $defaultLanguageMatchedTranslation;
-                }
+				if($defaultLanguageMatchedTranslation) {
+					return $defaultLanguageMatchedTranslation;
+				}
 
-                //return the first translation if all else fails
-                return $translations->first();
-            };
+				//return the first translation if all else fails
+				return $translations->first();
+			};
 
-            //prepend translation string as first argument to call sprintf with
-            // replece "nl::dutch%d|en::english%d" with "english%d"
-            array_unshift($args, $translation());
-            try {
-                return call_user_func_array('sprintf', $args);
-            }
-            catch(ArgumentCountError $e) {
-                return $translation();  // exception in sprintf. Possible mismatched %s
-            }
+			//prepend translation string as first argument to call sprintf with
+			// replece "nl::dutch%d|en::english%d" with "english%d"
+			array_unshift($args, $translation());
+			try {
+				return call_user_func_array('sprintf', $args);
+			}
+			catch(ArgumentCountError $e) {
+				return $translation();  // exception in sprintf. Possible mismatched %s
+			}
 
 		}
 
